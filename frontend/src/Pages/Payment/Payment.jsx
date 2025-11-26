@@ -1,16 +1,27 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./Payment.css";
 import GooglePayButtonComponent from "../../Components/PaymentGateways/GooglePayButtonComponent";
 import RazorpayButton from "../../Components/PaymentGateways/RazorPayButton";
 import PhonePayButton from "../../Components/PaymentGateways/PhonePayButton";
+import { useSelector } from "react-redux";
 
 const Payment = () => {
 
+    const { user } = useSelector((state) => state.user);
+
     const [amount, setAmount] = useState(500);
-        const [firstName, setFirstName] = useState('Test');
-        const [lastName, setLastName] = useState('User');
-        const [email, setEmail] = useState('test@yopmail.com');
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
+    const [email, setEmail] = useState('');
     
+
+    useEffect(() => {
+        if(user) {
+            setFirstName(user.name);
+            setEmail(user.email);
+        }
+    }, [user])
+
         return(
             <div className="root_form">
                 <div className='form_section'>
