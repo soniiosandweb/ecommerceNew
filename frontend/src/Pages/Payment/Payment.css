@@ -1,5 +1,4 @@
 .root_form {
-  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -42,11 +41,8 @@
   flex-wrap: wrap;
   flex-direction: row;
 }
-.google-pay-button-container .gpay-button {
-  width: 200px;
-}
 .form_section .form_col.payment_buttons .button {
-  padding: 7px 20px;
+  padding: 7px 15px;
   font-size: 16px;
   font-weight: 600;
   border-radius: 4px;

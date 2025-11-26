@@ -2,7 +2,7 @@ const express = require("express");
 const { googlePayProcess } = require("../controllers/googlePayController");
 const { razorPayProcess, razorPayCreateOrder } = require("../controllers/razorPayController");
 const { initiatePayment, checkPaymentStatus } = require("../controllers/phonePayController");
-const { registerUser, loginUser, getUserDetails } = require("../controllers/userController");
+const { registerUser, loginUser, getUserDetails, logoutUser } = require("../controllers/userController");
 const { isAuthenticatedUser } = require("../middlewares/auth");
 const router = express.Router();
 
@@ -29,5 +29,6 @@ router.post('/login', loginUser); // Login
 
 router.get('/me', isAuthenticatedUser, getUserDetails); //Get User Details
 
+router.get('/logout', logoutUser); //Logout User
 
 module.exports = router;

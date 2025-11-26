@@ -1,5 +1,5 @@
 import axios from "axios";
-import { CLEAR_ERRORS, LOAD_USER_FAIL, LOAD_USER_REQUEST, LOAD_USER_SUCCESS, LOGIN_USER_FAIL, LOGIN_USER_REQUEST, LOGIN_USER_SUCCESS, REGISTER_USER_FAIL, REGISTER_USER_REQUEST, REGISTER_USER_SUCCESS } from "../Types/userTypes";
+import { CLEAR_ERRORS, LOAD_USER_FAIL, LOAD_USER_REQUEST, LOAD_USER_SUCCESS, LOGIN_USER_FAIL, LOGIN_USER_REQUEST, LOGIN_USER_SUCCESS, LOGOUT_USER_FAIL, LOGOUT_USER_SUCCESS, REGISTER_USER_FAIL, REGISTER_USER_REQUEST, REGISTER_USER_SUCCESS } from "../Types/userTypes";
 
 // Register User
 export const registerUser = (userData) => async (dispatch) => {
@@ -79,6 +79,22 @@ export const loadUser = () => async (dispatch) => {
     } catch (error) {
         dispatch({
             type: LOAD_USER_FAIL,
+            payload: error.response.data.message,
+        });
+    }
+};
+
+// Logout User
+export const logoutUser = () => async (dispatch, getState) => {
+    try {
+        await axios.get('/api/logout');
+        dispatch({ type: LOGOUT_USER_SUCCESS });
+        
+        window.sessionStorage.clear();
+
+    } catch (error) {
+        dispatch({
+            type: LOGOUT_USER_FAIL,
             payload: error.response.data.message,
         });
     }

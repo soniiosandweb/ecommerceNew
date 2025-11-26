@@ -1,12 +1,28 @@
+import { useSnackbar } from 'notistack';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import Offcanvas from 'react-bootstrap/Offcanvas';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { logoutUser } from '../../Store/Actions/userActions';
+import { useNavigate } from 'react-router-dom';
 
 const Header = () => {
 
-    const { isAuthenticated } = useSelector((state) => state.user);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const { enqueueSnackbar } = useSnackbar();
+    const { isAuthenticated, user } = useSelector((state) => state.user);
+
+    const handleLogout = () => {
+        dispatch(logoutUser());
+        if(user.role === "admin"){
+            navigate("/admin");
+        } else {
+            navigate("/login");
+        }
+        enqueueSnackbar("Logout Successfully", { variant: "success" });
+    }
 
     return (
         <Navbar collapseOnSelect expand="lg" className="bg-body-tertiary">
@@ -31,7 +47,10 @@ const Header = () => {
                             {isAuthenticated === false ?
                                 <Nav.Link href="/login">Login</Nav.Link>
                             :
-                                <Nav.Link href="">Logout</Nav.Link>
+                                <>
+                                    <Nav.Link><b>Welcome {user.name}</b></Nav.Link>
+                                    <Nav.Link onClick={() => handleLogout()}>Logout</Nav.Link>
+                                </>
                             }
                         </Nav>
                     </Offcanvas.Body>

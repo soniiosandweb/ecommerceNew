@@ -1,4 +1,4 @@
-import { CLEAR_ERRORS, LOAD_USER_FAIL, LOAD_USER_REQUEST, LOAD_USER_SUCCESS, LOGIN_USER_FAIL, LOGIN_USER_REQUEST, LOGIN_USER_SUCCESS, REGISTER_USER_FAIL, REGISTER_USER_REQUEST, REGISTER_USER_SUCCESS } from "../Types/userTypes";
+import { CLEAR_ERRORS, LOAD_USER_FAIL, LOAD_USER_REQUEST, LOAD_USER_SUCCESS, LOGIN_USER_FAIL, LOGIN_USER_REQUEST, LOGIN_USER_SUCCESS, LOGOUT_USER_FAIL, LOGOUT_USER_SUCCESS, REGISTER_USER_FAIL, REGISTER_USER_REQUEST, REGISTER_USER_SUCCESS } from "../Types/userTypes";
 
 export const userReducer = (state = { user: {} }, { type, payload }) => {
     switch (type) {
@@ -33,6 +33,19 @@ export const userReducer = (state = { user: {} }, { type, payload }) => {
                 isAuthenticated: false,
                 user: null,
                 userError: payload,
+            }
+
+        case LOGOUT_USER_SUCCESS:
+            return {
+                loading: false,
+                user: null,
+                isAuthenticated: false,
+            };
+        case LOGOUT_USER_FAIL:
+            return {
+                ...state,
+                loading: false,
+                error: payload,
             }
         case CLEAR_ERRORS:
             return {
