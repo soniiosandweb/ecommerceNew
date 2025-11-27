@@ -1,8 +1,4 @@
-import Container from "react-bootstrap/Container";
-import Col from "react-bootstrap/Col";
-import Row from "react-bootstrap/Row";
-import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
+import {Container, Row, Col, Form, Button} from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";

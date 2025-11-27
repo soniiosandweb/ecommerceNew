@@ -1,38 +1,68 @@
-.App {
-  text-align: center;
+@font-face {
+  font-family: "Poppins";
+  src: url('./assests/fonts/Poppins-Regular.ttf');
 }
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+@font-face {
+  font-family: "Poppins-Medium";
+  src: url('./assests/fonts/Poppins-Medium.ttf');
 }
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+@font-face {
+  font-family: "Poppins-Bold";
+  src: url('./assests/fonts/Poppins-Bold.ttf');
 }
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+@font-face {
+  font-family: "Poppins-SemiBold";
+  src: url('./assests/fonts/Poppins-SemiBold.ttf');
 }
-
-.App-link {
-  color: #61dafb;
+@font-face {
+  font-family: "Inter";
+  src: url('./assests/fonts/Inter-Regular.ttf');
 }
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+@font-face {
+  font-family: "Inter-Medium";
+  src: url('./assests/fonts/Inter-Medium.ttf');
+}
+@font-face {
+  font-family: "Inter-SemiBold";
+  src: url('./assests/fonts/Inter-SemiBold.ttf');
+}
+@font-face {
+  font-family: "Inter-Bold";
+  src: url('./assests/fonts/Inter-Bold.ttf');
+}
+body {
+  font-family: 'Inter', sans-serif;
+}
+:root {
+  --primary-color: #210561;
+  --secondary-color: #310891;
+  --color-white: #fff;
+  --color-black: #000;
+  --color-orange: #FF6A00;
+  --color-lightpurple: #AA86FF;
+  --color-text: #848484;
+  --color-button: #091947;
+  --color-border: #081333;
+  --color-gray: #929090;
+  --color-transparent: transparent;
+  --poppins-semibold: "Poppins-SemiBold";
+  --poppins-bold: "Poppins-Bold";
+  --poppins-medium: "Poppins-Medium";
+  --poppins: "Poppins";
+  --inter-semibold: "Inter-SemiBold";
+  --inter-bold: "Inter-Bold";
+  --inter-medium: "Inter-Medium";
+  --inter: "Inter";
+}
+*:focus,
+*:focus-visible {
+  box-shadow: unset !important;
+}
+.container {
+  padding-left: 20px;
+  padding-right: 20px;
+}
+p {
+  margin-bottom: 0;
+  line-height: 1.3;
 }

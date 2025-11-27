@@ -1,0 +1,121 @@
+.header_main {
+    background-color: var(--secondary-color);
+    color: var(--color-white);
+    --bs-navbar-padding-x: 3rem;
+    --bs-navbar-padding-y: 0.5rem;
+}
+.header_main .container-fluid {
+    padding: 0;
+}
+.header_main .logo_header {
+    height: 39px;
+}
+.header_main .header_navbar {
+    --bs-nav-link-color: var(--color-white);
+    --bs-nav-link-hover-color: var(--bs-navbar-hover-color);
+    --bs-nav-link-hover-color: var(--color-orange);
+    --bs-navbar-active-color: var(--color-orange);
+    gap: 10px;
+}
+.header_main .dropdown-menu {
+    --bs-dropdown-link-color: var(--color-black);
+    --bs-dropdown-link-hover-color: var(--color-white);
+    --bs-dropdown-link-hover-bg: var(--color-orange);
+    --bs-dropdown-link-active-color: var(--color-white);
+    --bs-dropdown-link-active-bg: var(--color-orange);
+    right: 0;
+    left: auto;
+}
+.header_navbar .nav-link {
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--poppins-medium);
+    font-weight: 500;
+}
+.header_navbar .nav-link .menu_icon {
+    width: 20px;
+    filter: brightness(0) invert(1);
+}
+.header_navbar .nav-link:hover .menu_icon {
+    filter: unset;
+}
+.header_navbar .nav-link .menu_icon {
+    width: 24px;
+}
+.header_main .right_header {
+    padding-left: 10px;
+}
+.right_header .dropdown .dropdown-toggle .account_icon {
+    width: 30px;
+    filter: brightness(0) invert(1);
+}
+.right_header .dropdown .dropdown-toggle:hover .account_icon {
+    filter: unset;
+}
+.right_header .dropdown .dropdown-toggle::after {
+    display: none;
+}
+.header_main .navbar-toggler {
+    padding: 0px 0px 0px 10px;
+    background-color: transparent;
+    border: none;
+    border-radius: none;
+}
+.header_main .navbar-toggler .menu_icon_header {
+    width: 28px;
+}
+@media (max-width: 1399px) {
+    .header_main {
+        --bs-navbar-padding-x: 2rem;
+    }
+}
+@media (max-width: 1199px) {
+    .header_main {
+        --bs-navbar-padding-x: 1.5rem;
+    }
+}
+@media (max-width: 991px) {
+    .header_main {
+        --bs-navbar-padding-x: 20px;
+    }
+    .header_main .header_navbar {
+        gap: 5px;
+    }
+}
+@media (max-width: 767px) {
+    .header_main .right_header {
+        padding-left: 0;
+        margin-left: auto;
+    }
+    .header_main .right_header .header_navbar {
+        flex-direction: row;
+    }
+    .header_main .right_header .header_navbar .nav-link {
+        padding-right: 8px;
+        padding-left: 8px;
+    }
+    .offcanvas .header_navbar .nav-link .menu_icon {
+        filter: unset;
+    }
+    .header_main .dropdown-menu {
+        position: absolute;
+    }
+}
+@media (max-width: 375px) {
+    .header_main .navbar-toggler .menu_icon_header,
+    .right_header .dropdown .dropdown-toggle .account_icon {
+        width: 24px;
+    }
+    .right_header .header_navbar .nav-link .menu_icon {
+        width: 20px;
+    }
+    .header_main .right_header .header_navbar .nav-link {
+        padding-right: 5px;
+        padding-left: 5px;
+    }
+    .header_main .logo_header {
+        height: 30px;
+    }
+}
