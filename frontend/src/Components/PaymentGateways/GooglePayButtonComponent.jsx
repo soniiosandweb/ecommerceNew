@@ -1,7 +1,7 @@
 import React from "react";
 import GooglePayButton from "@google-pay/button-react";
 
-const GooglePayButtonComponent = ({ amount }) => {
+const GooglePayButtonComponent = ({ amount, user }) => {
 
   const handlePaymentData = async (paymentData) => {
     try {
@@ -11,7 +11,7 @@ const GooglePayButtonComponent = ({ amount }) => {
       const token = paymentData.paymentMethodData.tokenizationData.token;
 
       // Send to backend for processing
-      const response = await fetch(`${process.env.REACT_APP_API_URL}/process-payment`, {
+      const response = await fetch(`/api/process-payment`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

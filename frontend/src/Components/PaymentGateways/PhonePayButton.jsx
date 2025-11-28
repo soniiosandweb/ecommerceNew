@@ -1,14 +1,14 @@
 import axios from "axios";
 
-const PhonePayButton = ({ amount }) => {
+const PhonePayButton = ({ amount, user }) => {
 
     const handlePay = async (e) => {
         e.preventDefault();
         try {
-            const res = await axios.post(`${process.env.REACT_APP_API_URL}/phonepay-initiate`, {
+            const res = await axios.post(`/api/phonepay-initiate`, {
                 amount,
                 mobileNumber: "9999999999",
-                name: "test",
+                name: user.name,
                 merchantUserId: 'USER'+Date.now()
             });
             if (res.data && res.data.redirectUrl) {

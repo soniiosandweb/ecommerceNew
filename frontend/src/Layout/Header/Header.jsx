@@ -42,7 +42,7 @@ const shopMenu = [
     {
         title: "Cart",
         icon: cartIcon,
-        link: "/",
+        link: "/cart",
     },
     {
         title: "Wishlist",

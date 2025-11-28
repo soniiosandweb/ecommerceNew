@@ -9,6 +9,8 @@ import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import { loadUser } from './Store/Actions/userActions';
 import Login from './Pages/Login/Login';
+import Cart from './Pages/Cart/Cart';
+import ProtectedRoute from './ProtectedRoute';
 
 function App() {
 
@@ -25,8 +27,16 @@ function App() {
           <Route index element={<Home />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/payment" element={<Payment />} />
+
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/payment" element={
+            <ProtectedRoute>
+              <Payment />
+            </ProtectedRoute>
+          } />
           <Route path="/response/:id" element={<Response />} />
+
+          <Route path='*' element={<Home />} />
         </Route>
       </Routes>
     </BrowserRouter>

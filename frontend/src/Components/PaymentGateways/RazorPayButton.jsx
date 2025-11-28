@@ -1,13 +1,13 @@
 import axios from "axios";
 import razorPayIcon from "../../assests/images/razorpay.png";
 
-const RazorpayButton = ({ amount }) => {
+const RazorpayButton = ({ amount, user }) => {
 
   const handlePayment = async () => {
 
     try {
       const { data } = await axios.post(
-        `${process.env.REACT_APP_API_URL}/razor-create-order`,
+        `/api/razor-create-order`,
         { amount: amount }
       );
 
@@ -15,14 +15,14 @@ const RazorpayButton = ({ amount }) => {
         key: process.env.REACT_APP_RAZORPAY_KEY_ID,
         amount: data.order.amount,
         currency: "INR",
-        name: "Demo Store",
-        description: "Test Transaction",
+        name: "Ecomart",
+        description: "Product Payment",
         order_id: data.order.id,
         handler: async function (response) {
           const paymentId = response.razorpay_payment_id;
 
           try {
-            const response = await fetch(`${process.env.REACT_APP_API_URL}/razorpay-process`, {
+            const response = await fetch(`/api/razorpay-process`, {
               method: "POST",
               headers: { "Content-Type": "application/json" },
               body: JSON.stringify({
@@ -40,8 +40,8 @@ const RazorpayButton = ({ amount }) => {
             alert("Error processing payment:", error);
           }
         },
-        prefill: { email: "test@yopmail.com", contact: "9999999999" },
-        theme: { color: "#cc33a6ff" },
+        prefill: { email: user.email, contact: "9999999999" },
+        theme: { color: "#310891" },
       };
 
       const rzp = new window.Razorpay(options);

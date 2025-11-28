@@ -9,7 +9,7 @@ const Response = () => {
 
         const getResponse = async () => {
             try {
-                const res = await axios.get(`${process.env.REACT_APP_API_URL}/phonepay-status/${id}`);
+                const res = await axios.get(`/api/phonepay-status/${id}`);
                 if (res.data) {
                     console.log(res)
                     alert("✅ Payment Successful!");
