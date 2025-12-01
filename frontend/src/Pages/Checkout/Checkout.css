@@ -1,0 +1,43 @@
+.checkout_form .form-row {
+    display: flex;
+    gap: 16px;
+    padding: 8px 0;
+    flex: 1;
+    width: 100%;
+}
+.checkout_form .form-row .form-col {
+    flex: 1;
+}
+.checkout_form .form-row .form-label,
+.checkout_form .form-check .form-check-label {
+    color: var(--color-black);
+}
+.checkout_form .form-row .form-control {
+    padding: 8px 15px;
+    border: 1px solid var(--color-gray);
+    color: var(--color-black);
+}
+.checkout_form .checkout_payments {
+    gap: 16px;
+}
+.checkout_form .form-check {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+.checkout_form .form-row .form-control:focus {
+    border-color: var(--primary-color);
+}
+.checkout_form .form-check .form-check-input {
+    border: 1px solid var(--color-gray);
+    color: var(--color-black);
+    margin-top: -3px;
+}
+.checkout_form .form-check .payment_icon {
+    height: 32px;
+}
+@media (max-width: 575px) {
+    .checkout_form .form-row {
+        flex-direction: column;
+    }
+}

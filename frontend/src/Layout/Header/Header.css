@@ -1,6 +1,9 @@
 .header_main {
     background-color: var(--secondary-color);
     color: var(--color-white);
+    position: sticky;
+    top: 0;
+    z-index: 11;
     --bs-navbar-padding-x: 3rem;
     --bs-navbar-padding-y: 0.5rem;
 }
@@ -33,16 +36,39 @@
     gap: 8px;
     font-family: var(--poppins-medium);
     font-weight: 500;
+    position: relative;
+}
+.header_navbar .nav-link:hover,
+.header_navbar .nav-link:active,
+.header_navbar .nav-link.active {
+    color: var(--color-orange);
 }
 .header_navbar .nav-link .menu_icon {
     width: 20px;
     filter: brightness(0) invert(1);
 }
-.header_navbar .nav-link:hover .menu_icon {
+.header_navbar .nav-link:hover .menu_icon,
+.header_navbar .nav-link:active .menu_icon,
+.header_navbar .nav-link.active .menu_icon {
     filter: unset;
 }
 .header_navbar .nav-link .menu_icon {
     width: 24px;
+}
+.header_navbar .nav-link .cart_count {
+    background-color: red;
+    border-radius: 50%;
+    line-height: 1;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    color: var(--color-white);
 }
 .header_main .right_header {
     padding-left: 10px;
@@ -83,6 +109,9 @@
     .header_main .header_navbar {
         gap: 5px;
     }
+    .header_navbar .nav-link .menu_icon {
+        width: 20px;
+    }
 }
 @media (max-width: 767px) {
     .header_main .right_header {
@@ -103,13 +132,18 @@
         position: absolute;
     }
 }
-@media (max-width: 375px) {
+@media (max-width: 380px) {
     .header_main .navbar-toggler .menu_icon_header,
     .right_header .dropdown .dropdown-toggle .account_icon {
-        width: 24px;
+        width: 22px;
     }
     .right_header .header_navbar .nav-link .menu_icon {
         width: 20px;
+    }
+    .header_navbar .nav-link .cart_count {
+        width: 16px;
+        height: 16px;
+        font-size: 10px;
     }
     .header_main .right_header .header_navbar .nav-link {
         padding-right: 5px;

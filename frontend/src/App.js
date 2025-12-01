@@ -11,6 +11,9 @@ import { loadUser } from './Store/Actions/userActions';
 import Login from './Pages/Login/Login';
 import Cart from './Pages/Cart/Cart';
 import ProtectedRoute from './ProtectedRoute';
+import Checkout from './Pages/Checkout/Checkout';
+import Dashboard from './Pages/Dashboard/Dashboard';
+import MyOrders from './Pages/Dashboard/MyOrders/MyOrders';
 
 function App() {
 
@@ -29,12 +32,29 @@ function App() {
           <Route path="/login" element={<Login />} />
 
           <Route path="/cart" element={<Cart />} />
+          <Route path="/checkout" element={
+            <ProtectedRoute>
+              <Checkout />
+            </ProtectedRoute>
+          } />
           <Route path="/payment" element={
             <ProtectedRoute>
               <Payment />
             </ProtectedRoute>
           } />
           <Route path="/response/:id" element={<Response />} />
+
+          <Route path="/dashboard" element={
+            <ProtectedRoute>
+              <Dashboard />
+            </ProtectedRoute>
+          } />
+
+          <Route path="/my-orders" element={
+            <ProtectedRoute>
+              <MyOrders />
+            </ProtectedRoute>
+          } />
 
           <Route path='*' element={<Home />} />
         </Route>

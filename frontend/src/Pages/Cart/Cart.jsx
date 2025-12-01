@@ -1,16 +1,27 @@
 import "./Cart.css";
 import { Button, Col, Container, Row } from "react-bootstrap"
 import SEO from "../../Layout/SEO"
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { FaRegTrashAlt } from "react-icons/fa";
 import Sidebar from "./Sidebar";
 import { BsCartX } from "react-icons/bs";
+import { removeItemsFromCart } from "../../Store/Actions/cartActions";
+import { useSnackbar } from "notistack";
 
 const Cart = () => {
 
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const { enqueueSnackbar } = useSnackbar();
+
     const { cartItems } = useSelector((state) => state.cart);
+
+    // Remove Cart Item
+    const removeCartItem = (id) => {
+        dispatch(removeItemsFromCart(id));
+        enqueueSnackbar("Product Removed From Cart", { variant: "success" });
+    }
 
     return(
         <>
@@ -54,7 +65,7 @@ const Cart = () => {
                                                             </div>
                                                         </div>
                                                         <div className="product_cart_right_content">
-                                                            <Button className="remove_item_cart">
+                                                            <Button className="remove_item_cart" onClick={() => removeCartItem(item.product)}>
                                                                 <FaRegTrashAlt />
                                                             </Button>
                                                         </div>

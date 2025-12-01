@@ -31,7 +31,7 @@ exports.googlePayProcess = async (req, res) => {
 
     await payment.save();
 
-    res.json({ success: true, charge });
+    res.json({ success: true, payment });
   } catch (error) {
     console.error("Payment error:", error);
     res.status(500).json({ success: false, error: error.message });

@@ -1,0 +1,65 @@
+.dashboard_flex {
+    display: flex;
+    gap: 40px;
+}
+.dashboard_flex .dashboard_right_col {
+    width: 70%;
+    flex: 1;
+}
+.dashboard_flex .dashboard_right_col .dashboard_sidebar_cols {
+    height: 100%;
+}
+.dashboard_flex .dashboard_left_col {
+    width: 30%;
+    min-width: 300px;
+}
+.dashboard_sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+.dashboard_sidebar_cols {
+    box-shadow: 0 1px 3px 0 rgba(0,0,0,.1),0 1px 2px -1px rgba(0,0,0,.1);
+    padding: 1.2rem;
+    background-color: var(--color-background);
+    border-radius: 8px;
+}
+.dashboard_sidebar .profile_details {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+.dashboard_sidebar .profile_details .profile_icon {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+.dashboard_sidebar .profile_details .profile_name {
+    color: var(--color-black);
+    font-size: 18px;
+    font-weight: 600;
+    font-family: var(--inter-semibold);
+}
+.dashboard_sidebar .account_menus .nav {
+    flex-direction: column;
+}
+.dashboard_sidebar .account_menus .nav .nav-link {
+    color: var(--color-black);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 0;
+    border-bottom: 1px solid #e7e7e7;
+}
+.dashboard_sidebar .account_menus .nav .nav-link:last-child {
+    border-bottom: 0;
+}
+.dashboard_sidebar .account_menus .nav .nav-link.active,
+.dashboard_sidebar .account_menus .nav .nav-link:hover {
+    color: var(--color-orange);
+    font-weight: 600;
+}
+.dashboard_sidebar .account_menus .nav .nav-link svg {
+    font-size: 20px;
+}

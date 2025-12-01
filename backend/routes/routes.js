@@ -4,6 +4,7 @@ const { razorPayProcess, razorPayCreateOrder } = require("../controllers/razorPa
 const { initiatePayment, checkPaymentStatus } = require("../controllers/phonePayController");
 const { registerUser, loginUser, getUserDetails, logoutUser } = require("../controllers/userController");
 const { isAuthenticatedUser } = require("../middlewares/auth");
+const { newOrder, myOrders } = require("../controllers/orderController");
 const router = express.Router();
 
 // Process Google Pay Payment
@@ -21,6 +22,11 @@ router.post('/phonepay-initiate', initiatePayment);
 // Check Phone Pay Payment Status
 router.get('/phonepay-status/:merchantTransactionId', checkPaymentStatus);
 
+// New Order
+router.post('/order/new', isAuthenticatedUser, newOrder);
+
+// User Orders
+router.route('/orders/me').get(isAuthenticatedUser, myOrders);
 
 // -------- User Routes ----------- //
 router.post('/register', registerUser); // Register

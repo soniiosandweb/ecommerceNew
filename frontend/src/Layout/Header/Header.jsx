@@ -3,7 +3,7 @@ import { useSnackbar } from 'notistack';
 import {Container, Nav, Navbar, NavDropdown, Offcanvas} from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { logoutUser } from '../../Store/Actions/userActions';
-import { useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import logo from "../../assests/images/logo-white.png";
 import homeIcon from "../../assests/images/home-icon.png";
 import aboutIcon from "../../assests/images/user-groups.png";
@@ -24,37 +24,19 @@ const menuItems = [
     {
         title: "About Us",
         icon: aboutIcon,
-        link: "/",
+        link: "/about",
     },
     {
         title: "Blog",
         icon: blogIcon,
-        link: "/",
+        link: "/blog",
     },
     {
         title: "Contact Us",
         icon: contactIcon,
-        link: "/",
+        link: "/contact",
     }
 ];
-
-const shopMenu = [
-    {
-        title: "Cart",
-        icon: cartIcon,
-        link: "/cart",
-    },
-    {
-        title: "Wishlist",
-        icon: wishlistIcon,
-        link: "/",
-    },
-    {
-        title: "Shop",
-        icon: shopIcon,
-        link: "/",
-    }
-]
 
 const Header = () => {
 
@@ -62,6 +44,7 @@ const Header = () => {
     const navigate = useNavigate();
     const { enqueueSnackbar } = useSnackbar();
     const { isAuthenticated, user } = useSelector((state) => state.user);
+    const { cartItems } = useSelector((state) => state.cart);
 
     const handleLogout = () => {
         dispatch(logoutUser());
@@ -90,10 +73,10 @@ const Header = () => {
                     <Offcanvas.Body className="justify-content-end">
                         <Nav className="header_navbar">
                             {menuItems.map((item,i) => (
-                                <Nav.Link href={item.link} key={i}>
+                                <NavLink to={item.link} key={i} className={({ isActive }) => (isActive ? 'nav-link active' : 'nav-link')}>
                                     <img src={item.icon} alt={item.title} className="menu_icon" />
                                     {item.title}
-                                </Nav.Link>
+                                </NavLink>
                             ))}
                         </Nav>
                     </Offcanvas.Body>
@@ -101,11 +84,18 @@ const Header = () => {
 
                 <div className="right_header">
                     <Nav className="header_navbar">
-                        {shopMenu.map((item,i) => (
-                            <Nav.Link href={item.link} key={i}>
-                                <img src={item.icon} alt={item.title} className="menu_icon" />
-                            </Nav.Link>
-                        ))}
+                        <Nav.Link href="/cart">
+                            <img src={cartIcon} alt={"Cart"} className="menu_icon" />
+                            {cartItems && cartItems.length >=1 && <span className="cart_count">{cartItems.length}</span>}
+                        </Nav.Link>
+
+                        <Nav.Link href="/">
+                            <img src={wishlistIcon} alt={"Wishlist"} className="menu_icon" />
+                        </Nav.Link>
+
+                        <Nav.Link href="/">
+                            <img src={shopIcon} alt={"Shop"} className="menu_icon" />
+                        </Nav.Link>
 
                         <NavDropdown title={<img src={accountIcon} alt="account" className="account_icon" />} id="basic-nav-dropdown">
 
