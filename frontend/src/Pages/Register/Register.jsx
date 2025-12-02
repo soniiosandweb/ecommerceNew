@@ -3,7 +3,7 @@ import {Container, Row, Col, Form, Button} from "react-bootstrap";
 import { useDispatch, useSelector } from 'react-redux';
 import { clearErrors, registerUser } from '../../Store/Actions/userActions';
 import { useSnackbar } from 'notistack';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Register = () => {
 
@@ -53,13 +53,14 @@ const Register = () => {
     }, [dispatch, error, isAuthenticated, navigate, enqueueSnackbar]);
 
     return(
-        <div className="register_form py-5">
+        <div className="register_form padding-top padding-bottom">
             <Container>
                 <Row>
                     <Col>
-                        <Form noValidate validated={validated} onSubmit={handleSubmit}>
-                            <Row className="mb-3">
-                                <Form.Group as={Col} md="6" controlId="user_name">
+                        <Form noValidate validated={validated} onSubmit={handleSubmit} className="login_register_form">
+                            <h2 className="main_heading">Register</h2>
+                            <Row className="form-row">
+                                <Form.Group controlId="user_name">
                                     <Form.Label>Name</Form.Label>
                                     <Form.Control
                                         required
@@ -72,8 +73,10 @@ const Register = () => {
                                         Please choose a name.
                                     </Form.Control.Feedback>
                                 </Form.Group>
+                            </Row>
 
-                                <Form.Group as={Col} md="6" controlId="email_address">
+                            <Row className="form-row">
+                                <Form.Group controlId="email_address">
                                     <Form.Label>Email</Form.Label>
                                     <Form.Control
                                         required
@@ -86,11 +89,10 @@ const Register = () => {
                                         Please choose a email address.
                                     </Form.Control.Feedback>
                                 </Form.Group>
-                                
                             </Row>
 
-                            <Row className="mb-3">
-                                <Form.Group as={Col} md="6" controlId="user_password">
+                            <Row className="form-row">
+                                <Form.Group controlId="user_password">
                                     <Form.Label>Password</Form.Label>
                                     <Form.Control
                                         required
@@ -103,10 +105,12 @@ const Register = () => {
                                         Please choose a password.
                                     </Form.Control.Feedback>
                                 </Form.Group>
+                            </Row>
 
-                                <Form.Group as={Col} md="6" controlId="gender">
+                            <Row className="form-row">
+                                <Form.Group controlId="gender">
                                     <Form.Label>Gender</Form.Label>
-                                    <div key={`inline-radio`} className="mb-3">
+                                    <div key={`inline-radio`}>
                                         <Form.Check
                                             inline
                                             label="Male"
@@ -134,7 +138,7 @@ const Register = () => {
                                 
                             </Row>
                             
-                            <Form.Group className="mb-3">
+                            <Form.Group className="form-row">
                                 <Form.Check
                                     required
                                     label="Agree to terms and conditions"
@@ -144,9 +148,11 @@ const Register = () => {
                                     onChange={() => setTerms(!terms)}
                                 />
                             </Form.Group>
-                            <Button type="submit" disabled={loading}>
+                            <Button type="submit" disabled={loading} className="btn_primary">
                                 {loading ? "Loading" : "Register"}
                             </Button>
+
+                            <p className="login_register_links">Existing User? <Link to={"/login"}>Log in</Link></p>
                         </Form>
                     </Col>
                 </Row>

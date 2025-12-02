@@ -63,7 +63,7 @@ exports.initiatePayment = async (req, res) => {
         }
         )
     .then(function (response) {
-      console.log("response->", JSON.stringify(response.data));
+        //console.log("response->", JSON.stringify(response.data));
         res.json({
             success: true,
             redirectUrl: response.data.data.instrumentResponse.redirectInfo.url
@@ -100,7 +100,7 @@ exports.checkPaymentStatus = async (req, res) => {
             },
         })
         .then(async function (response) {
-            console.log("response->", response.data);
+            //console.log("response->", response.data);
             if (response.data && response.data.code === "PAYMENT_SUCCESS") {
                 // redirect to FE payment success status page
 

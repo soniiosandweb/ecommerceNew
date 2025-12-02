@@ -29,6 +29,9 @@
     right: 0;
     left: auto;
 }
+.header_main .dropdown-menu .dropdown-item {
+    margin: 5px 0;
+} 
 .header_navbar .nav-link {
     font-size: 14px;
     display: flex;

@@ -28,32 +28,6 @@ exports.newOrder = asyncErrorHandler(async (req, res, next) => {
         user: req.user._id,
     });
 
-    // var message = `<p>Hi ${req.user.name},</p>
-    //         <p>Just to let you know — we've received your order ${order._id}, and it is now being processed</p>
-    //         <table style="border-collapse: collapse;" border="1">
-    //             <tr>
-    //                 <th>Product</th>
-    //                 <th>Quantity</th>
-    //                 <th>Price</th>
-    //             </tr>`;
-                
-
-    // orderItems.forEach((order) => {
-    //     message += `<tr><td>${order.name}</td><td>${order.quantity}</td><td>${order.price}</td></tr>`;
-    // });
-
-    // message += `<tr >
-    //                 <td colspan=2>Total Prices:</td>
-    //                 <td>${totalPrice}</td>
-    //             </tr>
-    //         </table>`;
-
-    // await sendEmail({
-    //     email: req.user.email,
-    //     message: message,
-    //     subject: "Your order has been received!",
-    // });
-
     res.status(201).json({
         success: true,
         order,
@@ -64,7 +38,7 @@ exports.newOrder = asyncErrorHandler(async (req, res, next) => {
 // Get Logged In User Orders
 exports.myOrders = asyncErrorHandler(async (req, res, next) => {
 
-    const orders = await Order.find({ user: req.user._id }).populate('paymentInfo').exec();
+    const orders = await Order.find({ user: req.user._id }).populate('paymentInfo').sort({'createdAt': -1});
 
     if (!orders) {
         return next(new ErrorHandler("Order Not Found", 404));
@@ -73,5 +47,20 @@ exports.myOrders = asyncErrorHandler(async (req, res, next) => {
     res.status(200).json({
         success: true,
         orders,
+    });
+});
+
+// Get Single Order Details
+exports.getSingleOrderDetails = asyncErrorHandler(async (req, res, next) => {
+
+    const order = await Order.findById(req.params.id).populate("user", "name email").populate('paymentInfo').exec();
+
+    if (!order) {
+        return next(new ErrorHandler("Order Not Found", 404));
+    }
+
+    res.status(200).json({
+        success: true,
+        order,
     });
 });

@@ -16,30 +16,35 @@ const accountMenus = [
         title: "Profile Information",
         url: "/dashboard",
         icon: <MdSwitchAccount />,
+        id: "dashboard",
     },
     {
         title: "Change Password",
-        url: "/profile",
+        url: "/dashboard/password",
         icon: <RiLockPasswordFill />,
+        id: "password",
     },
     {
         title: "Address",
-        url: "/address",
+        url: "/dashboard/address",
         icon: <RiUserLocationFill />,
+        id: "address",
     },
     {
-        title: "Orders",
-        url: "/my-orders",
+        title: "My Orders",
+        url: "/dashboard/orders",
         icon: <BsCartCheckFill />,
+        id: "orders",
     },
     {
         title: "My Wishlist",
-        url: "/wishlist",
+        url: "/dashboard/wishlist",
         icon: <FaHeart />,
+        id: "wishlist",
     }
 ]
 
-const DashboardSidebar = () => {
+const DashboardSidebar = ({activeTab}) => {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -56,14 +61,14 @@ const DashboardSidebar = () => {
     return(
         <div className="dashboard_sidebar">
             <div className="dashboard_sidebar_cols profile_details">
-                <img src={profileIcon} alt="Profile" className="profile_icon" />
+                <img src={user.avatar && user.avatar.url ? user.avatar.url : profileIcon} alt="Profile" className="profile_icon" />
                 <p className="profile_name paragraph">{user.name}</p>
             </div>
 
             <div className="dashboard_sidebar_cols account_menus">
                 <Nav>
                     {accountMenus.map((item,i) => (
-                        <NavLink to={item.url} key={i} className={({ isActive }) => (isActive ? 'nav-link active' : 'nav-link')}>
+                        <NavLink to={item.url} key={i} className={(activeTab === item.id ? 'nav-link active-nav' : 'nav-link')}>
                             {item.icon}
                             {item.title}
                         </NavLink>

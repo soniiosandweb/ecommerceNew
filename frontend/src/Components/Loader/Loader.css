@@ -1,0 +1,10 @@
+.loader_block {
+    min-height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.loader_block .spinner-border {
+    border: var(--bs-spinner-border-width) solid var(--primary-color);
+    border-right-color: var(--color-gray);
+}

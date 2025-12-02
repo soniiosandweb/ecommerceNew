@@ -12,42 +12,42 @@ import { useSnackbar } from 'notistack';
 
 const productsLists = [
     {
-        id: 1,
-        slug: "glass-and-steel-dining-table",
-        title: "Glass And Steel Dining Table",
+        product: 1,
+        url: "glass-and-steel-dining-table",
+        name: "Glass And Steel Dining Table",
         image: "https://m.media-amazon.com/images/I/61t7aIC5JrL._AC_UF894,1000_QL80_.jpg",
         price: 18000,
-        actualPrice: 23000,
+        cuttedPrice: 23000,
         bestseller: true,
         discount: "23% off",
     },
     {
-        id: 2,
-        slug: "mars-king-hydraulic-storage-bed",
-        title: "Mars King Hydraulic Storage Bed",
+        product: 2,
+        url: "mars-king-hydraulic-storage-bed",
+        name: "Mars King Hydraulic Storage Bed",
         image: "https://m.media-amazon.com/images/I/61C-yGOB7eL._AC_UF894,1000_QL80_.jpg",
         price: 28000,
-        actualPrice: 46000,
+        cuttedPrice: 46000,
         bestseller: true,
         discount: "38% off",
     },
     {
-        id: 3,
-        slug: "elevate-pocket-spring-mattress",
-        title: "Elevate Pocket Spring Mattress",
+        product: 3,
+        url: "elevate-pocket-spring-mattress",
+        name: "Elevate Pocket Spring Mattress",
         image: "https://m.media-amazon.com/images/I/41tugWxtMKL._SY300_SX300_QL70_FMwebp_.jpg",
         price: 7549,
-        actualPrice: 1298,
+        cuttedPrice: 1298,
         bestseller: true,
         discount: "35% off",
     },
     {
-        id: 4,
-        slug: "arvia-dining-chair-with-arm",
-        title: "Arvia Dining Chair with Arm",
+        product: 4,
+        url: "arvia-dining-chair-with-arm",
+        name: "Arvia Dining Chair with Arm",
         image: "https://m.media-amazon.com/images/I/71+DAzMnv0L._AC_UF350,350_QL50_.jpg",
         price: 5999,
-        actualPrice: 11499,
+        cuttedPrice: 11499,
         bestseller: false,
         discount: "44% off",
     }
@@ -67,7 +67,7 @@ const Home = () => {
 
         <>
             <SEO
-                title={"Home - Eco Mart"}
+                name={"Home - Eco Mart"}
             />
 
             <div className="home_page padding-top padding-bottom">
@@ -79,18 +79,18 @@ const Home = () => {
                                 {productsLists.map((item, i) => (
                                     <div className="products_grid_item" key={i}>
                                         <div className="product_image_block">
-                                            <Link to={item.slug} target="_blank">
-                                                <img src={item.image} alt={item.title} className="product_image" />
+                                            <Link to={item.url}>
+                                                <img src={item.image} alt={item.name} className="product_image" />
                                                 {item.bestseller && <span className="best_seller">Best Seller</span>}
                                                 <span className="wishlist_items"><FaRegHeart /></span>
                                             </Link>
                                         </div>
                                         <div className="product_contents">
-                                            <Link to={item.slug} target="_blank" className="product_title">{item.title}</Link>
+                                            <Link to={item.url} className="product_title">{item.name}</Link>
                                             <div className="product_price_flex">
                                                 <p className="item_price_div">
                                                     <span className="item_price">₹{item.price.toLocaleString('en-US')}</span>
-                                                    <span className="item_price_actual">₹{item.actualPrice.toLocaleString('en-US')}</span>
+                                                    <span className="item_price_actual">₹{item.cuttedPrice.toLocaleString('en-US')}</span>
                                                 </p>
                                                 <p className="discount_price">{item.discount}</p>
                                             </div>

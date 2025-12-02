@@ -14,6 +14,8 @@ import ProtectedRoute from './ProtectedRoute';
 import Checkout from './Pages/Checkout/Checkout';
 import Dashboard from './Pages/Dashboard/Dashboard';
 import MyOrders from './Pages/Dashboard/MyOrders/MyOrders';
+import OrderDetails from './Pages/Dashboard/MyOrders/OrderDetails';
+import UpdatePassword from './Pages/Dashboard/UpdatePassword/UpdatePassword';
 
 function App() {
 
@@ -50,11 +52,23 @@ function App() {
             </ProtectedRoute>
           } />
 
-          <Route path="/my-orders" element={
+          <Route path="/dashboard/password" element={
+            <ProtectedRoute>
+              <UpdatePassword />
+            </ProtectedRoute>
+          } />
+
+          <Route path="/dashboard/orders" element={
             <ProtectedRoute>
               <MyOrders />
             </ProtectedRoute>
           } />
+
+          <Route path="/order-details/:id" element={
+            <ProtectedRoute>
+              <OrderDetails />
+            </ProtectedRoute>
+          }></Route>
 
           <Route path='*' element={<Home />} />
         </Route>

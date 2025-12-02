@@ -1,5 +1,5 @@
 import axios from "axios";
-import { CLEAR_ORDER_ERRORS, MY_ORDERS_FAIL, MY_ORDERS_REQUEST, MY_ORDERS_SUCCESS, NEW_ORDER_FAIL, NEW_ORDER_REQUEST, NEW_ORDER_SUCCESS } from "../Types/orderTypes";
+import { CLEAR_ORDER_ERRORS, MY_ORDERS_FAIL, MY_ORDERS_REQUEST, MY_ORDERS_SUCCESS, NEW_ORDER_FAIL, NEW_ORDER_REQUEST, NEW_ORDER_SUCCESS, ORDER_DETAILS_FAIL, ORDER_DETAILS_REQUEST, ORDER_DETAILS_SUCCESS } from "../Types/orderTypes";
 
 // New Order
 export const newOrderData = (order) => async (dispatch) => {
@@ -42,6 +42,26 @@ export const myOrders = () => async (dispatch) => {
     } catch (error) {
         dispatch({
             type: MY_ORDERS_FAIL,
+            payload: error.response.data.message,
+        });
+    }
+};
+
+// Get Order Details
+export const getOrderDetails = (id) => async (dispatch) => {
+    try {
+        dispatch({ type: ORDER_DETAILS_REQUEST });
+
+        const { data } = await axios.get(`/api/order/${id}`);
+
+        dispatch({
+            type: ORDER_DETAILS_SUCCESS,
+            payload: data.order,
+        })
+
+    } catch (error) {
+        dispatch({
+            type: ORDER_DETAILS_FAIL,
             payload: error.response.data.message,
         });
     }

@@ -6,11 +6,11 @@ export const addItemsToCart = (productData, quantity = 1) => async (dispatch, ge
     dispatch({
         type: ADD_TO_CART,
         payload: {
-            product: productData.id,
-            url: productData.slug,
-            name: productData.title,
+            product: productData.product,
+            url: productData.url,
+            name: productData.name,
             price: productData.price,
-            cuttedPrice: productData.actualPrice,
+            cuttedPrice: productData.cuttedPrice,
             image: productData.image,
             discount: productData.discount,
             quantity,

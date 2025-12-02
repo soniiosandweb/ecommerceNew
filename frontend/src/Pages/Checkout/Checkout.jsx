@@ -167,7 +167,7 @@ const Checkout = () => {
         if(success){
             dispatch(emptyCart());
             dispatch(clearOrderErrors());
-            navigate("/");
+            navigate("/dashboard/orders");
         }
 
         if(user) {

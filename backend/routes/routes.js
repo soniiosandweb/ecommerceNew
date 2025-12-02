@@ -2,31 +2,30 @@ const express = require("express");
 const { googlePayProcess } = require("../controllers/googlePayController");
 const { razorPayProcess, razorPayCreateOrder } = require("../controllers/razorPayController");
 const { initiatePayment, checkPaymentStatus } = require("../controllers/phonePayController");
-const { registerUser, loginUser, getUserDetails, logoutUser } = require("../controllers/userController");
+const { registerUser, loginUser, getUserDetails, logoutUser, updateProfile, updatePassword } = require("../controllers/userController");
 const { isAuthenticatedUser } = require("../middlewares/auth");
-const { newOrder, myOrders } = require("../controllers/orderController");
+const { newOrder, myOrders, getSingleOrderDetails } = require("../controllers/orderController");
 const router = express.Router();
 
-// Process Google Pay Payment
-router.post('/process-payment', googlePayProcess);
 
-// Razor Pay create order
-router.post('/razor-create-order', razorPayCreateOrder);
+// -------- User Routes ----------- //
 
-// Process Razor Pay Payment
-router.post('/razorpay-process', razorPayProcess);
+router.post('/process-payment', googlePayProcess); // Process Google Pay Payment
 
-// Initiate Phone Pay Paymeny
-router.post('/phonepay-initiate', initiatePayment);
+router.post('/razor-create-order', razorPayCreateOrder); // Razor Pay create order
 
-// Check Phone Pay Payment Status
-router.get('/phonepay-status/:merchantTransactionId', checkPaymentStatus);
+router.post('/razorpay-process', razorPayProcess); // Process Razor Pay Payment
 
-// New Order
-router.post('/order/new', isAuthenticatedUser, newOrder);
+router.post('/phonepay-initiate', initiatePayment); // Initiate Phone Pay Paymeny
 
-// User Orders
-router.route('/orders/me').get(isAuthenticatedUser, myOrders);
+router.get('/phonepay-status/:merchantTransactionId', checkPaymentStatus); // Check Phone Pay Payment Status
+
+router.post('/order/new', isAuthenticatedUser, newOrder); // New Order
+
+router.get('/orders/me', isAuthenticatedUser, myOrders); // User Orders
+
+router.get('/order/:id', isAuthenticatedUser, getSingleOrderDetails); // Single Order Detailss
+
 
 // -------- User Routes ----------- //
 router.post('/register', registerUser); // Register
@@ -34,6 +33,10 @@ router.post('/register', registerUser); // Register
 router.post('/login', loginUser); // Login
 
 router.get('/me', isAuthenticatedUser, getUserDetails); //Get User Details
+
+router.put('/me/update', isAuthenticatedUser, updateProfile); // Update User Profile
+
+router.put('/password/update', isAuthenticatedUser, updatePassword); // Update User Password
 
 router.get('/logout', logoutUser); //Logout User
 

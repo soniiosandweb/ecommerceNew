@@ -1,6 +1,7 @@
+import "./Login.css";
 import {Container, Row, Col, Form, Button} from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
 import { clearErrors, loginUser } from "../../Store/Actions/userActions";
 import { useEffect, useState } from "react";
@@ -48,12 +49,13 @@ const Login = () => {
     }, [dispatch, error, isAuthenticated, navigate, enqueueSnackbar]);
 
     return(
-        <div className="login_form py-5">
+        <div className="login_form padding-top padding-bottom">
             <Container>
                 <Row>
                     <Col>
-                        <Form noValidate validated={validated} onSubmit={handleLogin}>
-                            <Row className="mb-3">
+                        <Form noValidate validated={validated} onSubmit={handleLogin} className="login_register_form">
+                            <h2 className="main_heading">Login</h2>
+                            <Row className="form-row">
                                 <Form.Group controlId="email_address">
                                     <Form.Label>Email</Form.Label>
                                     <Form.Control
@@ -69,7 +71,7 @@ const Login = () => {
                                 </Form.Group>
                             </Row>
 
-                            <Row className="mb-3">
+                            <Row className="form-row">
                                 <Form.Group controlId="user_password">
                                     <Form.Label>Password</Form.Label>
                                     <Form.Control
@@ -85,9 +87,11 @@ const Login = () => {
                                 </Form.Group>
                             </Row>
 
-                            <Button type="submit" disabled={loading}>
+                            <Button type="submit" disabled={loading} className="btn_primary">
                                 {loading ? "Loading" : "Login"}
                             </Button>
+
+                            <p className="login_register_links">New to Ecomart? <Link to={"/register"}>Create an account</Link></p>
 
                         </Form>
                     </Col>

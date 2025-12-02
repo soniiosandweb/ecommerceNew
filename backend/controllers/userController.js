@@ -88,8 +88,6 @@ exports.getUserDetails = asyncErrorHandler(async (req, res, next) => {
     
     const user = await User.findById(req.user.id);
 
-    console.log(req.user.id)
-
     res.status(200).json({
         success: true,
         user,
@@ -107,4 +105,66 @@ exports.logoutUser = asyncErrorHandler(async (req, res, next) => {
         success: true,
         message: "Logged Out",
     });
+});
+
+// Update User Profile
+exports.updateProfile = asyncErrorHandler(async (req, res, next) => {
+
+    const newUserData = {
+        name: req.body.name,
+        email: req.body.email,
+        gender: req.body.gender,
+    }
+
+    if(req.body.avatar !== "") {
+        const user = await User.findById(req.user.id);
+
+        if(user.avatar && user.avatar.public_id) {
+
+            const imageId = user.avatar.public_id;
+
+            await cloudinary.v2.uploader.destroy(imageId);
+        }
+
+        const myCloud = await cloudinary.v2.uploader.upload(req.body.avatar, {
+            folder: "avatars",
+            width: 150,
+            crop: "scale",
+        });
+
+        newUserData.avatar = {
+            public_id: myCloud.public_id,
+            url: myCloud.secure_url,
+        }
+    }
+
+    await User.findByIdAndUpdate(req.user.id, newUserData, {
+        new: true,
+        runValidators: true,
+        useFindAndModify: true,
+    });
+
+    res.status(200).json({
+        success: true,
+    });
+});
+
+// Update Password
+exports.updatePassword = asyncErrorHandler(async (req, res, next) => {
+
+    const user = await User.findById(req.user.id).select("+password");
+
+    const isPasswordMatched = await user.comparePassword(req.body.oldPassword);
+
+    if(!isPasswordMatched) {
+        return next(new ErrorHandler("Current Password is Invalid", 400));
+    }
+
+    if(req.body.oldPassword === req.body.newPassword) {
+        return next(new ErrorHandler("New password is same as Current Password.", 400));
+    }
+
+    user.password = req.body.newPassword;
+    await user.save();
+    sendToken(user, 201, res);
 });
