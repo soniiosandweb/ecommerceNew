@@ -1,8 +1,10 @@
 import { createStore, combineReducers, applyMiddleware, compose  } from 'redux';
 import { thunk } from 'redux-thunk';
-import { profileReducer, userReducer } from './Reducers.js/userReducers';
-import { cartReducer } from './Reducers.js/cartReducer';
-import { myOrdersReducer, newOrderReducer, orderDetailsReducer } from './Reducers.js/orderReducer';
+import { profileReducer, userReducer } from './Reducers/userReducers';
+import { cartReducer } from './Reducers/cartReducer';
+import { myOrdersReducer, newOrderReducer, orderDetailsReducer } from './Reducers/orderReducer';
+import { addressReducer, addShippingReducer, shippingReducer } from './Reducers/shippingReducer';
+import { addWishlistsReducer, removeWishlistReducer, wishlistsReducer } from './Reducers/wishlistReducer';
 
 const reducer = combineReducers({
     user: userReducer,
@@ -11,15 +13,21 @@ const reducer = combineReducers({
     newOrder: newOrderReducer,
     myOrders: myOrdersReducer,
     orderDetails: orderDetailsReducer,
+    shipping: shippingReducer,
+    newShipping: addShippingReducer,
+    address: addressReducer,
+    newWishlist: addWishlistsReducer,
+    wishlists: wishlistsReducer,
+    wishlistItem: removeWishlistReducer,
 });
 
 let initialState = {
     cart: {
-        cartItems: window.sessionStorage.getItem('cartItems')
-            ? JSON.parse(window.sessionStorage.getItem('cartItems'))
+        cartItems: localStorage.getItem('cartItems')
+            ? JSON.parse(localStorage.getItem('cartItems'))
             : [],
-        totalAmount: window.sessionStorage.getItem("totalAmount")
-            ? JSON.parse(window.sessionStorage.getItem('totalAmount'))
+        totalAmount: localStorage.getItem("totalAmount")
+            ? JSON.parse(localStorage.getItem('totalAmount'))
             : null,
     },
 }

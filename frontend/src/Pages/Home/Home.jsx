@@ -6,9 +6,13 @@ import "./Home.css";
 import { Link } from "react-router-dom";
 import SEO from '../../Layout/SEO';
 import { FaRegHeart } from "react-icons/fa";
-import { useDispatch } from 'react-redux';
+import { FaHeart } from "react-icons/fa";
+import { useDispatch, useSelector } from 'react-redux';
 import { addItemsToCart } from '../../Store/Actions/cartActions';
 import { useSnackbar } from 'notistack';
+import { useEffect } from 'react';
+import { addWishlistItem, clearWishlistErrors, deleteWishlist, getWIshlistItems } from '../../Store/Actions/wishlistActions';
+import { ADD_WISHLIST_RESET, GET_WISHLIST_RESET, REMOVE_WISHLIST_RESET } from '../../Store/Types/wishlistTypes';
 
 const productsLists = [
     {
@@ -58,10 +62,70 @@ const Home = () => {
     const dispatch = useDispatch();
     const { enqueueSnackbar } = useSnackbar();
 
+    const { user } = useSelector((state) => state.user);
+    const { wishlists, loading: wishlistLoading, error: wishlistError } = useSelector((state) => state.wishlists);
+    const { isDeleted, error: deleteError } = useSelector((state) => state.wishlistItem);
+    const { success: isAdded, error: addError } = useSelector((state) => state.newWishlist);
+
+    // handle Add to cart
     const handleAddToCart = (item) => {
         dispatch(addItemsToCart(item));
         enqueueSnackbar("Product Added To Cart", { variant: "success" });
     }
+
+    // handle wishlist
+    const handleWishlist = (item) => {
+
+        const itemExist = wishlists && wishlists.some((i) => i.productItem.product === item.product);
+
+        if(user && user._id){
+            if(itemExist){
+                const itemDetails = wishlists.filter((i) => i.productItem.product === item.product);
+                console.log(itemDetails)
+                dispatch(deleteWishlist(itemDetails[0]._id));
+                enqueueSnackbar("Remove From Wishlist", { variant: "success" });
+            } else {
+                const data = {
+                    productItem: item,
+                    user: user._id,
+                };
+                dispatch(addWishlistItem(data));
+                enqueueSnackbar("Added To Wishlist", { variant: "success" });
+            }
+        } else {
+            enqueueSnackbar("Please Login to add item in wishlist", { variant: "warning" });
+        }
+    }
+
+    useEffect(() => {
+        if(user && user._id && wishlistLoading === undefined){
+            dispatch(getWIshlistItems(user._id));
+        }
+        
+        if(wishlistError){
+            dispatch({ type: GET_WISHLIST_RESET });
+        }
+
+        if (deleteError) {
+            enqueueSnackbar(deleteError, { variant: "error" });
+            dispatch(clearWishlistErrors());
+        }
+
+        if (addError) {
+            enqueueSnackbar(addError, { variant: "error" });
+            dispatch(clearWishlistErrors());
+        }
+
+        if (isDeleted) {
+            dispatch({ type: REMOVE_WISHLIST_RESET });
+            dispatch(getWIshlistItems(user._id));
+        }
+
+        if (isAdded) {
+            dispatch({ type: ADD_WISHLIST_RESET });
+            dispatch(getWIshlistItems(user._id));
+        }
+    }, [dispatch, wishlistLoading, user, deleteError, isDeleted, isAdded, addError, enqueueSnackbar, wishlistError])
 
     return(
 
@@ -79,18 +143,26 @@ const Home = () => {
                                 {productsLists.map((item, i) => (
                                     <div className="products_grid_item" key={i}>
                                         <div className="product_image_block">
-                                            <Link to={item.url}>
+                                            <Link to={`/${item.url}`}>
                                                 <img src={item.image} alt={item.name} className="product_image" />
-                                                {item.bestseller && <span className="best_seller">Best Seller</span>}
-                                                <span className="wishlist_items"><FaRegHeart /></span>
+                                                
                                             </Link>
+                                            {item.bestseller && <span className="best_seller">Best Seller</span>}
+                                            <span className="wishlist_items" onClick={() => handleWishlist(item)}>
+                                                {wishlists && wishlists.some((i) => i.productItem.product === item.product)
+                                                ?
+                                                    <FaHeart />
+                                                :
+                                                    <FaRegHeart />
+                                                }
+                                            </span>
                                         </div>
                                         <div className="product_contents">
-                                            <Link to={item.url} className="product_title">{item.name}</Link>
+                                            <Link to={`/${item.url}`} className="product_title">{item.name}</Link>
                                             <div className="product_price_flex">
                                                 <p className="item_price_div">
-                                                    <span className="item_price">₹{item.price.toLocaleString('en-US')}</span>
-                                                    <span className="item_price_actual">₹{item.cuttedPrice.toLocaleString('en-US')}</span>
+                                                    <span className="item_price">₹{item.price.toLocaleString()}</span>
+                                                    <span className="item_price_actual">₹{item.cuttedPrice.toLocaleString()}</span>
                                                 </p>
                                                 <p className="discount_price">{item.discount}</p>
                                             </div>

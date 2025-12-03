@@ -5,6 +5,8 @@ const { initiatePayment, checkPaymentStatus } = require("../controllers/phonePay
 const { registerUser, loginUser, getUserDetails, logoutUser, updateProfile, updatePassword } = require("../controllers/userController");
 const { isAuthenticatedUser } = require("../middlewares/auth");
 const { newOrder, myOrders, getSingleOrderDetails } = require("../controllers/orderController");
+const { getAddressDetails, createShippingAddress, updateShipping } = require("../controllers/shippingController");
+const { getWishlists, createWishlist, deleteWishlist } = require("../controllers/wishlistController");
 const router = express.Router();
 
 
@@ -39,5 +41,20 @@ router.put('/me/update', isAuthenticatedUser, updateProfile); // Update User Pro
 router.put('/password/update', isAuthenticatedUser, updatePassword); // Update User Password
 
 router.get('/logout', logoutUser); //Logout User
+
+
+// -------- Shipping Address ----------- //
+router.get('/shipping/:id', getAddressDetails); // Get Shipping Address
+
+router.post('/address/add', isAuthenticatedUser, createShippingAddress); // Add Shipping Address
+
+router.put('/address/:id', isAuthenticatedUser, updateShipping); // Update Shipping Address
+
+// -------- Wishlist ----------- //
+router.get('/wishlist/:id', isAuthenticatedUser, getWishlists); // Get Wishlist of User
+
+router.post('/wishlist/new', isAuthenticatedUser, createWishlist); // Add New Item to Wishlist
+
+router.delete('/wishlist/delete/:id', isAuthenticatedUser, deleteWishlist); // Delete Wishlist
 
 module.exports = router;

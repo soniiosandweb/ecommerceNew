@@ -52,6 +52,19 @@
     flex-direction: column;
     gap: 10px;
 }
+.pagination {
+    --bs-pagination-color: var(--primary-color);
+    --bs-pagination-bg: var(--color-transparent);
+    --bs-pagination-hover-color: var(--color-white);
+    --bs-pagination-hover-bg: var(--primary-color);
+    --bs-pagination-hover-border-color: var(--primary-color);
+    --bs-pagination-focus-color: var(--color-white);
+    --bs-pagination-focus-bg: var(--primary-color);
+    --bs-pagination-active-color: #fff;
+    --bs-pagination-active-bg: var(--primary-color);
+    --bs-pagination-active-border-color: var(--primary-color);
+    gap: 5px;
+}
 @media (max-width: 767px) {
     .orders_item_block {
         flex-direction: column;

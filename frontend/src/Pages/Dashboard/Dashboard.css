@@ -108,14 +108,17 @@
 .dashboard_profile_form .form-row>* {
     padding: 0;
 }
-.dashboard_profile_form .form-row .form-control {
+.dashboard_profile_form .form-row .form-control,
+.dashboard_profile_form .form-row .form-select {
     padding: 10px 15px;
     color: var(--color-black);
 }
-.dashboard_profile_form .form-row .form-control[readonly] {
+.dashboard_profile_form .form-row .form-control[readonly],
+.dashboard_profile_form .form-row .form-select[readonly] {
     background-color: #0000000f;
 }
-.dashboard_profile_form .form-row .form-control:focus {
+.dashboard_profile_form .form-row .form-control:focus,
+.dashboard_profile_form .form-row .form-select:focus {
     border-color: var(--primary-color);
 }
 .dashboard_profile_form .form-check {

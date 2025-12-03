@@ -17,7 +17,7 @@ export const addItemsToCart = (productData, quantity = 1) => async (dispatch, ge
         },
     });
 
-    window.sessionStorage.setItem('cartItems', JSON.stringify(getState().cart.cartItems))
+    localStorage.setItem('cartItems', JSON.stringify(getState().cart.cartItems))
 }
 
 // remove cart item
@@ -28,7 +28,7 @@ export const removeItemsFromCart = (id) => async (dispatch, getState) => {
         payload: id,
     });
 
-    window.sessionStorage.setItem('cartItems', JSON.stringify(getState().cart.cartItems))
+    localStorage.setItem('cartItems', JSON.stringify(getState().cart.cartItems))
 }
 
 // empty cart
@@ -36,7 +36,7 @@ export const emptyCart = () => async (dispatch, getState) => {
 
     dispatch({ type: EMPTY_CART });
 
-    window.sessionStorage.setItem('cartItems', JSON.stringify(getState().cart.cartItems))
+    localStorage.setItem('cartItems', JSON.stringify(getState().cart.cartItems))
 
 }
 
@@ -48,5 +48,5 @@ export const setTotalAmount = (amount) => async (dispatch, getState) => {
         payload: amount,
      });
 
-     window.sessionStorage.setItem('totalAmount', JSON.stringify(getState().cart.totalAmount))
+     localStorage.setItem('totalAmount', JSON.stringify(getState().cart.totalAmount))
 }

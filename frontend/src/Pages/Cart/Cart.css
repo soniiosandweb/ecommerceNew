@@ -134,6 +134,9 @@
     border-radius: 8px;
     min-height: 300px;
 }
+.empty_cart_block.no_border {
+    box-shadow: unset;
+}
 .cart_empty_icon {
     color: var(--color-orange);
     font-size: 6rem;

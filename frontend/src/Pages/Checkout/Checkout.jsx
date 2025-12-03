@@ -13,6 +13,8 @@ import axios from "axios"
 import { useNavigate } from "react-router-dom";
 import { emptyCart } from "../../Store/Actions/cartActions"
 import GooglePayButton from "@google-pay/button-react"
+import states from "../../utils/states"
+import { getAddressDetails } from "../../Store/Actions/shippingActions"
 
 const Checkout = () => {
 
@@ -23,6 +25,7 @@ const Checkout = () => {
     const { user } = useSelector((state) => state.user);
     const { cartItems, totalAmount } = useSelector((state) => state.cart);
     const { success, error } = useSelector((state) => state.newOrder);
+    const { addressInfo, loading } = useSelector((state) => state.address);
 
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
@@ -175,7 +178,20 @@ const Checkout = () => {
             setEmail(user.email);
         }
 
-    }, [dispatch, user, error, success, enqueueSnackbar, navigate])
+        if(loading === undefined){
+            dispatch(getAddressDetails(user._id));
+        }
+
+        if(addressInfo && addressInfo.length > 0 ){
+            setAddress(addressInfo[0].address);
+            setCity(addressInfo[0].city);
+            setCountry(addressInfo[0].country);
+            setState(addressInfo[0].state);
+            setPincode(addressInfo[0].pincode);
+            setPhoneNumber(addressInfo[0].phoneNo);
+        }
+
+    }, [dispatch, user, error, success, enqueueSnackbar, navigate, addressInfo, loading])
 
     return(
         <>
@@ -204,36 +220,44 @@ const Checkout = () => {
                                         <div className="form-row">
                                             <Form.Group controlId="user_address" className="form-col">
                                                 <Form.Label>Address</Form.Label>
-                                                <Form.Control type="text" name="user_address" defaultValue={address} onChange={(e) => setAddress(e.target.value)} required />
+                                                <Form.Control type="text" name="user_address" value={address} onChange={(e) => setAddress(e.target.value)} required />
                                             </Form.Group>
 
                                             <Form.Group controlId="user_city" className="form-col">
                                                 <Form.Label>City</Form.Label>
-                                                <Form.Control type="text" name="user_city" defaultValue={city} onChange={(e) => setCity(e.target.value)} required />
+                                                <Form.Control type="text" name="user_city" value={city} onChange={(e) => setCity(e.target.value)} required />
                                             </Form.Group>
                                         </div>
 
                                         <div className="form-row">
                                             <Form.Group controlId="user_state" className="form-col">
                                                 <Form.Label>State</Form.Label>
-                                                <Form.Control type="text" name="user_state" defaultValue={state} onChange={(e) => setState(e.target.value)} required />
+                                                <Form.Select name="user_state" value={state} onChange={(e) => setState(e.target.value)} required>
+                                                    <option value="">Select State</option>
+                                                    {states.map((item) => (
+                                                        <option key={item.code} value={item.name}>{item.name}</option>
+                                                    ))}
+                                                </Form.Select>
                                             </Form.Group>
 
                                             <Form.Group controlId="user_pincode" className="form-col">
                                                 <Form.Label>Pincode</Form.Label>
-                                                <Form.Control type="text" name="user_pincode" defaultValue={pincode} onChange={(e) => setPincode(e.target.value)} required />
+                                                <Form.Control type="text" name="user_pincode" value={pincode} onChange={(e) => setPincode(e.target.value)} required />
                                             </Form.Group>
                                         </div>
 
                                         <div className="form-row">
                                             <Form.Group controlId="user_country" className="form-col">
                                                 <Form.Label>Country</Form.Label>
-                                                <Form.Control type="text" name="user_country" defaultValue={country} onChange={(e) => setCountry(e.target.value)} required />
+                                                <Form.Select name="user_country" value={country} onChange={(e) => setCountry(e.target.value)} required>
+                                                    <option value="">Select Country</option>
+                                                    <option value={"IN"}>India</option>
+                                                </Form.Select>
                                             </Form.Group>
 
                                             <Form.Group controlId="user_phone" className="form-col">
                                                 <Form.Label>Phone Number</Form.Label>
-                                                <Form.Control type="text" name="user_phone" defaultValue={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} required />
+                                                <Form.Control type="text" name="user_phone" value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} required />
                                             </Form.Group>
                                         </div>
 

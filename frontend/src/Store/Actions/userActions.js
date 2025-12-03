@@ -1,6 +1,7 @@
 import axios from "axios";
 import { CLEAR_ERRORS, LOAD_USER_FAIL, LOAD_USER_REQUEST, LOAD_USER_SUCCESS, LOGIN_USER_FAIL, LOGIN_USER_REQUEST, LOGIN_USER_SUCCESS, LOGOUT_USER_FAIL, LOGOUT_USER_SUCCESS, REGISTER_USER_FAIL, REGISTER_USER_REQUEST, REGISTER_USER_SUCCESS, UPDATE_PASSWORD_FAIL, UPDATE_PASSWORD_REQUEST, UPDATE_PASSWORD_SUCCESS, UPDATE_PROFILE_FAIL, UPDATE_PROFILE_REQUEST, UPDATE_PROFILE_SUCCESS } from "../Types/userTypes";
 import { EMPTY_CART } from "../Types/cartTypes";
+import { GET_WISHLIST_RESET } from "../Types/wishlistTypes";
 
 // Register User
 export const registerUser = (userData) => async (dispatch) => {
@@ -92,8 +93,10 @@ export const logoutUser = () => async (dispatch) => {
         dispatch({ type: LOGOUT_USER_SUCCESS });
 
         dispatch({ type: EMPTY_CART });
+
+        dispatch({ type: GET_WISHLIST_RESET });
         
-        window.sessionStorage.clear();
+        localStorage.clear();
 
     } catch (error) {
         dispatch({

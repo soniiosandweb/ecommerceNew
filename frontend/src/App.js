@@ -16,6 +16,8 @@ import Dashboard from './Pages/Dashboard/Dashboard';
 import MyOrders from './Pages/Dashboard/MyOrders/MyOrders';
 import OrderDetails from './Pages/Dashboard/MyOrders/OrderDetails';
 import UpdatePassword from './Pages/Dashboard/UpdatePassword/UpdatePassword';
+import Address from './Pages/Dashboard/Address/Address';
+import Wishlists from './Pages/Dashboard/Wishlists/Wishlists';
 
 function App() {
 
@@ -58,9 +60,21 @@ function App() {
             </ProtectedRoute>
           } />
 
+          <Route path="/dashboard/address" element={
+            <ProtectedRoute>
+              <Address />
+            </ProtectedRoute>
+          } />
+
           <Route path="/dashboard/orders" element={
             <ProtectedRoute>
               <MyOrders />
+            </ProtectedRoute>
+          } />
+
+          <Route path="/dashboard/wishlist" element={
+            <ProtectedRoute>
+              <Wishlists />
             </ProtectedRoute>
           } />
 

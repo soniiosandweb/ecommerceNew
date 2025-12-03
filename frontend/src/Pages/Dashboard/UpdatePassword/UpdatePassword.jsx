@@ -1,4 +1,3 @@
-import "./UpdatePassword.css";
 import { Button, Col, Container, Form, Row } from "react-bootstrap"
 import SEO from "../../../Layout/SEO"
 import DashboardSidebar from "../DashboardSidebar"

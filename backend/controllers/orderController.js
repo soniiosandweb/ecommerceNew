@@ -1,5 +1,6 @@
 const asyncErrorHandler = require('../middlewares/asyncErrorHandler');
 const Order = require('../models/orderModel');
+const Shipping = require('../models/shippingModel');
 
 // Create New Order
 exports.newOrder = asyncErrorHandler(async (req, res, next) => {
@@ -17,6 +18,20 @@ exports.newOrder = asyncErrorHandler(async (req, res, next) => {
         if (orderExist) {
             return next(new ErrorHandler("Order Already Placed", 400));
         }
+    }
+
+    let shipping = await Shipping.findOne({user: req.user._id});
+
+    if (shipping) {
+
+        shipping = await Shipping.findByIdAndUpdate(shipping._id, shippingInfo, {
+            new: true,
+            runValidators: true,
+            useFindAndModify: false,
+        });
+
+    } else {
+        shipping = await Shipping.create(shippingInfo);
     }
 
     const order = await Order.create({

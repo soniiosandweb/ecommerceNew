@@ -46,6 +46,8 @@ const Cart = () => {
                 <Container>
                     <Row>
                         <Col>
+                            <h2 class="main_heading text-center">Cart</h2>
+
                             {/* Empty cart */}
                             {cartItems && cartItems.length === 0 ? (
 
@@ -65,16 +67,16 @@ const Cart = () => {
                                             {cartItems && cartItems.map((item,i) => (
                                                 <div className="cart_lists_block" key={i}>
                                                     
-                                                    <Link to={item.url}>
+                                                    <Link to={`/${item.url}`}>
                                                         <img src={item.image} alt={item.name} className="product_cart_image" />
                                                     </Link>
                                                     <div className="product_cart_title_block">
                                                         <div className="product_cart_left_content">
-                                                            <Link to={item.url} className="paragraph product_title">{item.name}</Link>
+                                                            <Link to={`/${item.url}`} className="paragraph product_title">{item.name}</Link>
                                                             <div className="product_price_flex">
                                                                 <p className="item_price_div">
-                                                                    <span className="item_price">₹{item?.price?.toLocaleString('en-US')}</span>
-                                                                    <span className="item_price_actual">₹{item?.cuttedPrice?.toLocaleString('en-US')}</span>
+                                                                    <span className="item_price">₹{item?.price?.toLocaleString()}</span>
+                                                                    <span className="item_price_actual">₹{item?.cuttedPrice?.toLocaleString()}</span>
                                                                 </p>
                                                                 <p className="discount_price">{item.discount}</p>
                                                                 <InputGroup className="quantity_change_group">

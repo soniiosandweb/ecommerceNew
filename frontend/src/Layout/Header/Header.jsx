@@ -45,6 +45,7 @@ const Header = () => {
     const { enqueueSnackbar } = useSnackbar();
     const { isAuthenticated, user } = useSelector((state) => state.user);
     const { cartItems } = useSelector((state) => state.cart);
+    const { wishlists } = useSelector((state) => state.wishlists);
 
     const handleLogout = () => {
         dispatch(logoutUser());
@@ -89,8 +90,9 @@ const Header = () => {
                             {cartItems && cartItems.length >=1 && <span className="cart_count">{cartItems.length}</span>}
                         </Nav.Link>
 
-                        <Nav.Link href="/">
+                        <Nav.Link href="/dashboard/wishlist">
                             <img src={wishlistIcon} alt={"Wishlist"} className="menu_icon" />
+                            {wishlists && wishlists.length >=1 && <span className="cart_count">{wishlists.length}</span>}
                         </Nav.Link>
 
                         <Nav.Link href="/">
