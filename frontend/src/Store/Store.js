@@ -5,6 +5,7 @@ import { cartReducer } from './Reducers/cartReducer';
 import { myOrdersReducer, newOrderReducer, orderDetailsReducer } from './Reducers/orderReducer';
 import { addressReducer, addShippingReducer, shippingReducer } from './Reducers/shippingReducer';
 import { addWishlistsReducer, removeWishlistReducer, wishlistsReducer } from './Reducers/wishlistReducer';
+import { productDetailsReducer, productsReducer } from './Reducers/productReducers';
 
 const reducer = combineReducers({
     user: userReducer,
@@ -19,6 +20,8 @@ const reducer = combineReducers({
     newWishlist: addWishlistsReducer,
     wishlists: wishlistsReducer,
     wishlistItem: removeWishlistReducer,
+    products: productsReducer,
+    productDetails: productDetailsReducer,
 });
 
 let initialState = {

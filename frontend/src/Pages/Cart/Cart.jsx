@@ -46,7 +46,7 @@ const Cart = () => {
                 <Container>
                     <Row>
                         <Col>
-                            <h2 class="main_heading text-center">Cart</h2>
+                            <h2 class="main_heading text-center margin-below">Cart</h2>
 
                             {/* Empty cart */}
                             {cartItems && cartItems.length === 0 ? (
@@ -67,12 +67,12 @@ const Cart = () => {
                                             {cartItems && cartItems.map((item,i) => (
                                                 <div className="cart_lists_block" key={i}>
                                                     
-                                                    <Link to={`/${item.url}`}>
+                                                    <Link to={`/product/${item.url}`}>
                                                         <img src={item.image} alt={item.name} className="product_cart_image" />
                                                     </Link>
                                                     <div className="product_cart_title_block">
                                                         <div className="product_cart_left_content">
-                                                            <Link to={`/${item.url}`} className="paragraph product_title">{item.name}</Link>
+                                                            <Link to={`/product/${item.url}`} className="paragraph product_title">{item.name}</Link>
                                                             <div className="product_price_flex">
                                                                 <p className="item_price_div">
                                                                     <span className="item_price">₹{item?.price?.toLocaleString()}</span>
@@ -80,7 +80,7 @@ const Cart = () => {
                                                                 </p>
                                                                 <p className="discount_price">{item.discount}</p>
                                                                 <InputGroup className="quantity_change_group">
-                                                                    <Button className="plus_minus_btn" onClick={() => decreaseQuantity(item, item.quantity)} disabled={item.quantity <= 1}>
+                                                                    <Button className="plus_minus_btn" onClick={() => decreaseQuantity(item.product, item.quantity)} disabled={item.quantity <= 1}>
                                                                         <FaMinus />
                                                                     </Button>
                                                                     <FormControl
@@ -89,7 +89,7 @@ const Cart = () => {
                                                                         type="text"
                                                                         min="1"
                                                                     />
-                                                                    <Button className="plus_minus_btn" onClick={() => increaseQuantity(item, item.quantity)}>
+                                                                    <Button className="plus_minus_btn" onClick={() => increaseQuantity(item.product, item.quantity)}>
                                                                         <FaPlus />
                                                                     </Button>
                                                                 </InputGroup>

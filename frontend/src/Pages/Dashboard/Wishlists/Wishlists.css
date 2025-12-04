@@ -3,7 +3,7 @@
     gap: 2rem;
     padding: 20px;
     border-radius: 8px;
-    background-color: #ededed;
+    background-color: #d9d9d9;
     margin: 20px 0;
     justify-content: space-between;
 }
@@ -26,11 +26,11 @@
 }
 .wishlist_item_block .paragraph {
     text-transform: capitalize;
+    color: var(--color-black);
 }
 .wishlist_item_block .paragraph.bold {
     font-weight: 500;
     font-family: var(--inter-medium);
-    color: var(--color-black);
 }
 .wishlist_remove_block {
     color: red;

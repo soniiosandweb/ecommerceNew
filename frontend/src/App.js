@@ -18,6 +18,7 @@ import OrderDetails from './Pages/Dashboard/MyOrders/OrderDetails';
 import UpdatePassword from './Pages/Dashboard/UpdatePassword/UpdatePassword';
 import Address from './Pages/Dashboard/Address/Address';
 import Wishlists from './Pages/Dashboard/Wishlists/Wishlists';
+import ProductDetails from './Pages/ProductDetails/ProductDetails';
 
 function App() {
 
@@ -34,6 +35,7 @@ function App() {
           <Route index element={<Home />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/product/:url" element={<ProductDetails />} />
 
           <Route path="/cart" element={<Cart />} />
           <Route path="/checkout" element={

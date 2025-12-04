@@ -124,6 +124,12 @@ p {
   background-color: var(--color-orange);
   border-color: var(--color-orange);
 }
+.margin-below {
+  margin-bottom: 40px;
+}
+.margin-top {
+  margin-top: 40px;
+}
 @media (max-width: 767px) {
   .padding-top {
     padding-top: 40px;
@@ -139,5 +145,11 @@ p {
   }
   .main_heading {
     font-size: 25px;
+  }
+  .margin-below {
+    margin-bottom: 20px;
+  }
+  .margin-top {
+    margin-top: 20px;
   }
 }

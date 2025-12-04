@@ -201,6 +201,9 @@ const Checkout = () => {
                 <Container>
                     <Row>
                         <Col>
+
+                            <h2 class="main_heading text-center margin-below">Checkout</h2>
+
                             <Form className="cart_page_flex checkout_form" onSubmit={(e) => handleCheckoutSubmit(e)}>
                                 <div className="cart_left_col">
 

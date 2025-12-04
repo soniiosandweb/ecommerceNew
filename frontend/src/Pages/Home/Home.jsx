@@ -13,49 +13,7 @@ import { useSnackbar } from 'notistack';
 import { useEffect } from 'react';
 import { addWishlistItem, clearWishlistErrors, deleteWishlist, getWIshlistItems } from '../../Store/Actions/wishlistActions';
 import { ADD_WISHLIST_RESET, GET_WISHLIST_RESET, REMOVE_WISHLIST_RESET } from '../../Store/Types/wishlistTypes';
-
-const productsLists = [
-    {
-        product: 1,
-        url: "glass-and-steel-dining-table",
-        name: "Glass And Steel Dining Table",
-        image: "https://m.media-amazon.com/images/I/61t7aIC5JrL._AC_UF894,1000_QL80_.jpg",
-        price: 18000,
-        cuttedPrice: 23000,
-        bestseller: true,
-        discount: "23% off",
-    },
-    {
-        product: 2,
-        url: "mars-king-hydraulic-storage-bed",
-        name: "Mars King Hydraulic Storage Bed",
-        image: "https://m.media-amazon.com/images/I/61C-yGOB7eL._AC_UF894,1000_QL80_.jpg",
-        price: 28000,
-        cuttedPrice: 46000,
-        bestseller: true,
-        discount: "38% off",
-    },
-    {
-        product: 3,
-        url: "elevate-pocket-spring-mattress",
-        name: "Elevate Pocket Spring Mattress",
-        image: "https://m.media-amazon.com/images/I/41tugWxtMKL._SY300_SX300_QL70_FMwebp_.jpg",
-        price: 7549,
-        cuttedPrice: 1298,
-        bestseller: true,
-        discount: "35% off",
-    },
-    {
-        product: 4,
-        url: "arvia-dining-chair-with-arm",
-        name: "Arvia Dining Chair with Arm",
-        image: "https://m.media-amazon.com/images/I/71+DAzMnv0L._AC_UF350,350_QL50_.jpg",
-        price: 5999,
-        cuttedPrice: 11499,
-        bestseller: false,
-        discount: "44% off",
-    }
-]
+import { getAllProducts } from '../../Store/Actions/productActions';
 
 const Home = () => {
 
@@ -67,6 +25,8 @@ const Home = () => {
     const { isDeleted, error: deleteError } = useSelector((state) => state.wishlistItem);
     const { success: isAdded, error: addError } = useSelector((state) => state.newWishlist);
 
+    const { loading, products } = useSelector((state) => state.products);
+
     // handle Add to cart
     const handleAddToCart = (item) => {
         dispatch(addItemsToCart(item));
@@ -76,17 +36,17 @@ const Home = () => {
     // handle wishlist
     const handleWishlist = (item) => {
 
-        const itemExist = wishlists && wishlists.some((i) => i.productItem.product === item.product);
+        const itemExist = wishlists && wishlists.some((i) => i.product._id === item);
 
         if(user && user._id){
             if(itemExist){
-                const itemDetails = wishlists.filter((i) => i.productItem.product === item.product);
+                const itemDetails = wishlists.filter((i) => i.product._id === item);
                 console.log(itemDetails)
                 dispatch(deleteWishlist(itemDetails[0]._id));
                 enqueueSnackbar("Remove From Wishlist", { variant: "success" });
             } else {
                 const data = {
-                    productItem: item,
+                    product: item,
                     user: user._id,
                 };
                 dispatch(addWishlistItem(data));
@@ -125,7 +85,12 @@ const Home = () => {
             dispatch({ type: ADD_WISHLIST_RESET });
             dispatch(getWIshlistItems(user._id));
         }
-    }, [dispatch, wishlistLoading, user, deleteError, isDeleted, isAdded, addError, enqueueSnackbar, wishlistError])
+
+        if(loading === undefined) {
+            dispatch(getAllProducts());
+        }
+
+    }, [dispatch, wishlistLoading, user, deleteError, isDeleted, isAdded, addError, enqueueSnackbar, wishlistError, loading])
 
     return(
 
@@ -140,16 +105,16 @@ const Home = () => {
                         <Col>
                             <h2 className='main_heading'>Top Selling Products</h2>
                             <div className="products_grid_block less-padding-top">
-                                {productsLists.map((item, i) => (
+                                {products && products.length >= 1 && products.map((item, i) => (
                                     <div className="products_grid_item" key={i}>
                                         <div className="product_image_block">
-                                            <Link to={`/${item.url}`}>
-                                                <img src={item.image} alt={item.name} className="product_image" />
+                                            <Link to={`/product/${item.url}`}>
+                                                <img src={item.images} alt={item.name} className="product_image" />
                                                 
                                             </Link>
-                                            {item.bestseller && <span className="best_seller">Best Seller</span>}
-                                            <span className="wishlist_items" onClick={() => handleWishlist(item)}>
-                                                {wishlists && wishlists.some((i) => i.productItem.product === item.product)
+                                            {item.featured && <span className="best_seller">Best Seller</span>}
+                                            <span className="wishlist_items" onClick={() => handleWishlist(item._id)}>
+                                                {wishlists && wishlists.some((i) => i.product._id === item._id)
                                                 ?
                                                     <FaHeart />
                                                 :
@@ -158,7 +123,7 @@ const Home = () => {
                                             </span>
                                         </div>
                                         <div className="product_contents">
-                                            <Link to={`/${item.url}`} className="product_title">{item.name}</Link>
+                                            <Link to={`/product/${item.url}`} className="product_title">{item.name}</Link>
                                             <div className="product_price_flex">
                                                 <p className="item_price_div">
                                                     <span className="item_price">₹{item.price.toLocaleString()}</span>
@@ -166,7 +131,7 @@ const Home = () => {
                                                 </p>
                                                 <p className="discount_price">{item.discount}</p>
                                             </div>
-                                            <Button className="add_to_cart_btn" onClick={() => handleAddToCart(item)}>Add To Cart</Button>
+                                            <Button className="add_to_cart_btn" onClick={() => handleAddToCart(item._id)}>Add To Cart</Button>
                                         </div>
                                     </div>
                                 ))}

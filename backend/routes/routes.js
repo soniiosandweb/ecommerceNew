@@ -7,10 +7,11 @@ const { isAuthenticatedUser } = require("../middlewares/auth");
 const { newOrder, myOrders, getSingleOrderDetails } = require("../controllers/orderController");
 const { getAddressDetails, createShippingAddress, updateShipping } = require("../controllers/shippingController");
 const { getWishlists, createWishlist, deleteWishlist } = require("../controllers/wishlistController");
+const { getProducts, getProductDetails, getProductDetailsByURL } = require("../controllers/productController");
 const router = express.Router();
 
 
-// -------- User Routes ----------- //
+// -------- Payment Routes ----------- //
 
 router.post('/process-payment', googlePayProcess); // Process Google Pay Payment
 
@@ -50,11 +51,20 @@ router.post('/address/add', isAuthenticatedUser, createShippingAddress); // Add 
 
 router.put('/address/:id', isAuthenticatedUser, updateShipping); // Update Shipping Address
 
+
 // -------- Wishlist ----------- //
 router.get('/wishlist/:id', isAuthenticatedUser, getWishlists); // Get Wishlist of User
 
 router.post('/wishlist/new', isAuthenticatedUser, createWishlist); // Add New Item to Wishlist
 
 router.delete('/wishlist/delete/:id', isAuthenticatedUser, deleteWishlist); // Delete Wishlist
+
+
+// -------- Product Routes ----------- //
+router.get('/products/all', getProducts); // Get all products
+
+router.get('/product/:id', getProductDetails); // Get product details
+
+router.post('/product/details', getProductDetailsByURL); // Get product details By URL
 
 module.exports = router;
